@@ -9,7 +9,7 @@ const client = new Client({ intents: [
 });
 
 client.once(Events.ClientReady, () => {
-    console.log(`Logged in as ${client.user.tag}`);
+    console.log(`Connecté à ${client.user.tag}`);
 });
 
-client.login(process.env.DISCORD_BOT_TOKEN);
+client.login(process.env.DISCORD_BOT_TOKEN); 
