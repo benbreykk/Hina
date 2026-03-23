@@ -1,15 +1,11 @@
-const { Client, Events, GatewayIntentBits } = require('discord.js');
-require('dotenv').config();
+const { SapphireClient } = require('@sapphire/framework');
+const { GatewayIntentBits } = require('discord.js');
+const dotenv = require('dotenv');
+dotenv.config();
 
-const client = new Client({ intents: [
-    GatewayIntentBits.Guilds, 
-    GatewayIntentBits.GuildMessages, 
-    GatewayIntentBits.MessageContent
-] 
-});
 
-client.once(Events.ClientReady, () => {
-    console.log(`Connecté à ${client.user.tag}`);
-});
+const client = new SapphireClient({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
+    loadMessageCommandListeners: true,
+ });
 
-client.login(process.env.DISCORD_BOT_TOKEN); 
+client.login(process.env.BOT_TOKEN);
