@@ -2,6 +2,7 @@ const { Command } = require('@sapphire/framework');
 const fetch = require('node-fetch');
 const { EmbedBuilder } = require('discord.js');
 const dotenv = require('dotenv');
+const { client } = require('tenorjs');
 dotenv.config();
 
 
@@ -32,7 +33,7 @@ class HugCommand extends Command {
         // Créer un embed avec le GIF de câlin
         if (target.id === interaction.user.id) {
           const embed = new EmbedBuilder()
-            .setTitle(`${interaction.user.username} se fait un câlin à lui-même! 🤗`)
+            .setTitle(` ${client.user.username} fait un câlin à ${interaction.user.username} 🤗`)
             .setImage(`${data.data.images.original.url}`);
           await interaction.reply({ embeds: [embed] });
         } else {

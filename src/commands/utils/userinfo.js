@@ -24,7 +24,8 @@ class UserInfoCommand extends Command {
         .addFields(
           { name: 'Nom d\'utilisateur', value: user.username, inline: true },
           { name: 'ID', value: user.id, inline: true },
-          { name: 'Crée le', value: `${user.createdAt.toDateString()}`, inline: true }
+          { name: 'Crée le', value: `${user.createdAt.toDateString()}`, inline: true },
+          { name: 'Bot', value: user.bot ? 'Oui' : 'Non', inline: true }
         );
       return interaction.reply({ embeds: [embed] });
     }

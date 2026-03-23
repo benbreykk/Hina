@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@sapphire/framework": "^5.5.0",
+    "axios": "^1.13.6",
     "discord.js": "^14.25.1",
     "dotenv": "^17.2.3",
-    "node-fetch": "^2.6.6"
+    "node-fetch": "^2.6.6",
+    "tenorjs": "^1.0.10"
   }
 }
