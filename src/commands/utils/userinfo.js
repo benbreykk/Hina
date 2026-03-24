@@ -18,14 +18,14 @@ class UserInfoCommand extends Command {
     async chatInputRun(interaction) {
       const user = interaction.options.getUser('target') || interaction.user;
       const embed = new EmbedBuilder()
-        .setTitle('Information d\'utilisateur')
+        .setTitle('📄 Information d\'utilisateur')
         .setColor(0x00AE86)
         .setThumbnail(user.displayAvatarURL({ dynamic: true }))
         .addFields(
-          { name: 'Nom d\'utilisateur', value: user.username, inline: true },
-          { name: 'ID', value: user.id, inline: true },
-          { name: 'Crée le', value: `${user.createdAt.toDateString()}`, inline: true },
-          { name: 'Bot', value: user.bot ? 'Oui' : 'Non', inline: true }
+          { name: '👤Nom d\'utilisateur', value: user.username, inline: true },
+          { name: '🔸ID', value: user.id, inline: true },
+          { name: '📅Crée le', value: `${user.createdAt.toDateString()}`, inline: true },
+          { name: '🤖Bot', value: user.bot ? 'Oui' : 'Non', inline: true }
         );
       return interaction.reply({ embeds: [embed] });
     }

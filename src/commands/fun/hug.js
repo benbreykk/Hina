@@ -29,17 +29,17 @@ class HugCommand extends Command {
 
     try {
         // Récupérer un GIF de câlin aléatoire depuis l'API Giphy
-        const response = await fetch(`https://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_API_KEY}&tag=anime hug&rating=pg`);
+        const response = await fetch(`https://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_API_KEY}&tag=anime+hug`);
         const data = await response.json();
         // Créer un embed avec le GIF de câlin
         if (target.id === interaction.user.id) {
           const embed = new EmbedBuilder()
-            .setTitle(`Gros câlin pour ${interaction.user.username} 🤗`)
+            .setTitle(`🤗 Gros câlin pour ${interaction.user.username} `)
             .setImage(`${data.data.images.original.url}`);
           await interaction.reply({ embeds: [embed] });
         } else {
             const embed = new EmbedBuilder()
-          .setTitle(`${interaction.user.username} fait un câlin à ${target.username}! 🤗`)
+          .setTitle(`🤗 ${interaction.user.username} fait un câlin à ${target.username}! `)
           .setImage(`${data.data.images.original.url}`);
         await interaction.reply({ content: `<@${target.id}>`, embeds: [embed] });
         // Répondre à l'utilisateur avec le GIF de câlin

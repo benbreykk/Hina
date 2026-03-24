@@ -28,17 +28,17 @@ class SlapCommand extends Command {
 
     try {
         // Récupérer un GIF de coup de poing aléatoire depuis l'API Giphy
-        const response = await fetch(`https://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_API_KEY}&tag=anime slap&rating=pg`);
+        const response = await fetch(`https://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_API_KEY}&tag=animeslap`);
         const data = await response.json();
         // Créer un embed avec le GIF de coup de poing
         if (target.id === interaction.user.id) {
           const embed = new EmbedBuilder()
-            .setTitle(`${interaction.user.username} se gifle lui-même! (idiot(e))`)
+            .setTitle(`👋 ${interaction.user.username} se gifle lui-même! (idiot(e)) `)
             .setImage(`${data.data.images.original.url}`);
           await interaction.reply({ embeds: [embed] });
         } else {
             const embed = new EmbedBuilder()
-          .setTitle(`${interaction.user.username} gifle ${target.username}!`)
+          .setTitle(`👋 ${interaction.user.username} gifle ${target.username}! `)
           .setImage(`${data.data.images.original.url}`);
         await interaction.reply({ content: `<@${target.id}>`, embeds: [embed] });
         // Répondre à l'utilisateur avec le GIF de coup de poing
