@@ -3,7 +3,7 @@ const { Command } = require('@sapphire/framework');
 const fetch = require('node-fetch');
 const { EmbedBuilder, Application } = require('discord.js');
 const dotenv = require('dotenv');
-const { client } = require('tenorjs');
+const { fetchError } = require('../../assets/msg/error.json');
 dotenv.config();
 
 
@@ -11,7 +11,7 @@ class HugContextMenuCommand extends Command {
   constructor(context, options) {
     super(context, { ...options });
   }
-
+  // Enregistrer la commande de menu contextuel
   registerApplicationCommands(registry) {
     registry.registerContextMenuCommand((builder) =>
       builder.setName('Hug')
@@ -44,9 +44,9 @@ class HugContextMenuCommand extends Command {
       // Gérer les erreurs de l'API Giphy
       catch (error) {
         console.error('Error fetching hug gif:', error);
-        await interaction.reply('Sorry, I couldn\'t fetch a hug gif right now.');   
+        await interaction.reply(fetchError.replace('{action}', 'hug'));
+      }
     }
-}
 }
 module.exports = {
   HugContextMenuCommand
