@@ -29,7 +29,7 @@ class HugContextMenuCommand extends Command {
         // Créer un embed avec le GIF de câlin
         if (target.id === interaction.user.id) {
           const embed = new EmbedBuilder()
-            .setTitle(` ${client.user} fait un câlin à ${interaction.user.username} 🤗`)
+            .setTitle(`Gros câlin pour ${interaction.user.username} 🤗`)
             .setImage(`${data.data.images.original.url}`);
           await interaction.reply({ embeds: [embed] });
         } else {
