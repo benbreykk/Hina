@@ -1,5 +1,5 @@
 const { Command } = require('@sapphire/framework');
-const { MessageFlags, EmbedBuilder } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 class UserInfoCommand extends Command {
   constructor(context, options) {
