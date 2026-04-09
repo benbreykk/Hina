@@ -29,18 +29,18 @@ class SlapContextMenuCommand extends Command {
         });
       }
     async contextMenuRun(interaction) {
-    const target = interaction.targetUser;
+    const target = interaction.targetUser || interaction.targetMember;
 
     try {
         // Créer un embed avec le GIF de gifle
         if (target.id === interaction.user.id) {
           const embed = new EmbedBuilder()
-            .setTitle(`👋 Grosse gifle pour ${interaction.user.username}`)
+            .setTitle(`👋 Grosse gifle pour ${interaction.member.displayName}`)
             .setImage(`${await this.fetchWaifu()}`);
           await interaction.reply({ embeds: [embed] });
         } else {
             const embed = new EmbedBuilder()
-          .setTitle(`👋${interaction.user.username} gifle à ${target.username}! `)
+          .setTitle(`👋${interaction.member.displayName} gifle à ${target.displayName}! `)
           .setImage(`${await this.fetchWaifu()}`);
         await interaction.reply({ content: `<@${target.id}>`, embeds: [embed] });
         // Répondre à l'utilisateur avec le GIF de gifle

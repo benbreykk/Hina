@@ -24,6 +24,7 @@
 - Serverinfo ✅
 - Userinfo ❌
 - Avatar (ContextMenu Only) ✅
+- Suggestions (Salon + Bouton + Modal) 🔄️
 ## Twitch
 - Twitch Channels Research ❌
 - Later... ❌

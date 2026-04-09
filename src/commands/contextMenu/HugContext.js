@@ -29,18 +29,18 @@ class HugContextMenuCommand extends Command {
         });
       }
     async contextMenuRun(interaction) {
-    const target = interaction.targetUser;
+    const target = interaction.targetMember || interaction.targetUser;
 
     try {
         // Créer un embed avec le GIF de câlin
         if (target.id === interaction.user.id) {
           const embed = new EmbedBuilder()
-            .setTitle(`🤗 Gros câlin pour ${interaction.user.username}`)
+            .setTitle(`🤗 Gros câlin pour ${interaction.member.displayName}`)
             .setImage(`${await this.fetchWaifu()}`);
           await interaction.reply({ embeds: [embed] });
         } else {
             const embed = new EmbedBuilder()
-          .setTitle(`🤗 ${interaction.user.username} fait un câlin à ${target.username}! `)
+          .setTitle(`🤗 ${interaction.member.displayName} fait un câlin à ${target.displayName}! `)
           .setImage(`${await this.fetchWaifu()}`);
         await interaction.reply({ content: `<@${target.id}>`, embeds: [embed] });
         // Répondre à l'utilisateur avec le GIF de câlin

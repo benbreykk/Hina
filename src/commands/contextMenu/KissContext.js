@@ -29,18 +29,18 @@ class KissContextMenuCommand extends Command {
         });
       }
     async contextMenuRun(interaction) {
-    const target = interaction.targetUser;
+    const target = interaction.targetMember || interaction.targetUser;
 
     try {
         // Créer un embed avec le GIF de câlin
         if (target.id === interaction.user.id) {
           const embed = new EmbedBuilder()
-            .setTitle(`${interaction.user.username} s\'embrasse lui-même 😘 (ça va l'égo ?) `)
+            .setTitle(`${interaction.member.displayName} s\'embrasse lui-même 😘 (ça va l'égo ?) `)
             .setImage(`${await this.fetchWaifu()}`);
           await interaction.reply({ embeds: [embed] });
         } else {
             const embed = new EmbedBuilder()
-          .setTitle(`${interaction.user.username} embrasse ${target.username}! 😘`)
+          .setTitle(`${interaction.member.displayName} embrasse ${target.displayName}! 😘`)
           .setImage(`${await this.fetchWaifu()}`);
         await interaction.reply({ content: `<@${target.id}>`, embeds: [embed] });
         // Répondre à l'utilisateur avec le GIF de bisou

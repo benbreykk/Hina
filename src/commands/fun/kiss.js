@@ -16,7 +16,7 @@ class KissCommand extends Command {
     registry.registerChatInputCommand((builder) =>
       builder.setName('kiss')
         .setDescription('Fais un bisou à quelqu\'un')
-        .addUserOption(option => option
+        .addMemberOption(option => option
             .setName('target')
             .setDescription('Utilisateur à qui faire un bisou')
             .setRequired(true)
@@ -35,18 +35,18 @@ class KissCommand extends Command {
         }
 
   async chatInputRun(interaction) {
-    const target = interaction.options.getUser('target');
+    const target = interaction.options.getMember('target');
 
     try {
         // Créer un embed avec le GIF de bisou
         if (target.id === interaction.user.id) {
           const embed = new EmbedBuilder()
-            .setTitle(`${interaction.user.username} s\'embrasse lui-même 😘 (ça va l'égo ?) `)
+            .setTitle(`${interaction.member.displayName} s\'embrasse lui-même 😘 (ça va l'égo ?) `)
             .setImage(`${await this.fetchWaifu()}`);
           await interaction.reply({ embeds: [embed] });
         } else {
             const embed = new EmbedBuilder()
-          .setTitle(`${interaction.user.username} embrasse ${target.username}! 😘`)
+          .setTitle(`${interaction.member.displayName} embrasse ${target.displayName}! 😘`)
           .setImage(`${await this.fetchWaifu()}`);
         await interaction.reply({ content: `<@${target.id}>`, embeds: [embed] });
         // Répondre à l'utilisateur avec le GIF de bisou

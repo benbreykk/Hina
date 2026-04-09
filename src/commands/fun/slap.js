@@ -15,7 +15,7 @@ class SlapCommand extends Command {
     registry.registerChatInputCommand((builder) =>
       builder.setName('slap')
         .setDescription('Donne un coup de poing à quelqu\'un')
-        .addUserOption(option => option
+        .addMemberOption(option => option
             .setName('target')
             .setDescription('Utilisateur à qui donner un coup de poing')
             .setRequired(true)
@@ -33,18 +33,18 @@ class SlapCommand extends Command {
         }
 
   async chatInputRun(interaction) {
-    const target = interaction.options.getUser('target');
+    const target = interaction.options.getMember('target');
 
     try {
         // Créer un embed avec le GIF de coup de poing
         if (target.id === interaction.user.id) {
           const embed = new EmbedBuilder()
-            .setTitle(`👋 ${interaction.user.username} se gifle lui-même! (idiot(e)) `)
+            .setTitle(`👋 ${interaction.member.displayName} se gifle lui-même! (idiot(e)) `)
             .setImage(`${await this.fetchWaifu()}`);
           await interaction.reply({ embeds: [embed] });
         } else {
             const embed = new EmbedBuilder()
-          .setTitle(`👋 ${interaction.user.username} gifle ${target.username}! `)
+          .setTitle(`👋 ${interaction.member.displayName} gifle ${target.displayName}! `)
           .setImage(`${await this.fetchWaifu()}`);
         await interaction.reply({ content: `<@${target.id}>`, embeds: [embed] });
         // Répondre à l'utilisateur avec le GIF de coup de poing

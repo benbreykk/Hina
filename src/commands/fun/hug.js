@@ -26,7 +26,7 @@ class HugCommand extends Command {
     registry.registerChatInputCommand((builder) =>
       builder.setName('hug')
         .setDescription('Fais un câlin à quelqu\'un')
-        .addUserOption(option => option
+        .addMemberOption(option => option
             .setName('target')
             .setDescription('Utilisateur à qui faire un câlin')
             .setRequired(true)
@@ -35,18 +35,22 @@ class HugCommand extends Command {
   }
 
   async chatInputRun(interaction) {
-    const target = interaction.options.getUser('target');
+    const target = interaction.options.getMember('target');
+
+    if (!target) {
+      return interaction.reply({ content: 'Utilisateur introuvable.', ephemeral: true });
+    }
 
     try {
         // Créer un embed avec le GIF de câlin
         if (target.id === interaction.user.id) {
           const embed = new EmbedBuilder()
-            .setTitle(`🤗 Gros câlin pour ${interaction.user.username} `)
+            .setTitle(`🤗 Gros câlin pour ${interaction.member.displayName} `)
             .setImage(`${await this.fetchWaifu()}`);
           await interaction.reply({ embeds: [embed] });
         } else {
             const embed = new EmbedBuilder()
-          .setTitle(`🤗 ${interaction.user.username} fait un câlin à ${target.username}! `)
+          .setTitle(`🤗 ${interaction.member.displayName} fait un câlin à ${target.displayName}! `)
           .setImage(`${await this.fetchWaifu()}`);
         await interaction.reply({ content: `<@${target.id}>`, embeds: [embed] });
         // Répondre à l'utilisateur avec le GIF de câlin

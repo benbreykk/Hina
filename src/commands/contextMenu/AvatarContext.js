@@ -17,11 +17,12 @@ class AvatarContextMenuCommand extends Command {
   }
 
     async contextMenuRun(interaction) {
-      const target = interaction.targetUser;
+      const target = interaction.targetMember;
       const embed = new EmbedBuilder()
-        .setTitle(`📷 Avatar de ${target.username}`)
+        .setTitle(`📷 ${target.displayName}`)
+        .setURL(target.displayAvatarURL({ dynamic: true, size: 512 }))
         .setImage(target.displayAvatarURL({ dynamic: true, size: 512 }))
-        .setFooter({ text: `Demandé par ${interaction.user.username}`, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) });
+        .setFooter({ text: `Demandé par ${interaction.member.displayName}`, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) });
       await interaction.reply({ embeds: [embed] });
     }
 }

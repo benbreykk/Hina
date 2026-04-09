@@ -26,8 +26,9 @@ class WaifuCommand extends Command {
     try {
       const waifuUrl = await this.fetchWaifu();
       const embed = new EmbedBuilder()
-        .setTitle('Waifu')
+        .setTitle('Waifu aléatoire')
         .setImage(waifuUrl)
+        .setURL(waifuUrl)
         .setColor('#ff0000');
       await interaction.reply({ embeds: [embed] });
     } catch (error) {
