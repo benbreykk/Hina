@@ -1,5 +1,5 @@
 const { Command } = require('@sapphire/framework');
-const { EmbedBuilder, ThreadChannel } = require('discord.js');
+const { EmbedBuilder, ButtonBuilder } = require('discord.js');
 const { CONFESS_CHANNEL_ID } = process.env;
 
 class ConfessCommand extends Command {
@@ -21,19 +21,25 @@ class ConfessCommand extends Command {
 
   async chatInputRun(interaction) {
     const message = interaction.options.getString('message');
-
+    const customId = 'confess_button';
+      // Créer le bouton pour répondre à la confession
+    const button = new ButtonBuilder()
+      .setCustomId('confess_button')
+      .setLabel('Répondre à la confession')
+      .setStyle(1);
     // Envoyer le message de confession dans un salon spécifique
     const confessionChannel = interaction.guild.channels.cache.get(CONFESS_CHANNEL_ID);
     if (!confessionChannel) {
       return interaction.reply({ content: 'Le salon de confession est introuvable.', ephemeral: true });
     }
+
     const embed = new EmbedBuilder()
       .setTitle('Nouvelle confession')
       .setDescription(`${message}`)
       .setColor('#FF69B4')
       .setFooter({ text: 'Utilisateur anonyme' })
       .setTimestamp();
-    const response = await confessionChannel.send({ embeds: [embed] });
+    const response = await confessionChannel.send({ embeds: [embed], components: [{ type: 1, components: [button] }] });
 
     const thead = await confessionChannel.threads.create({
       name: `Discussion de la confession`,
