@@ -7,20 +7,20 @@ const { fetchError } = require('../../assets/msg/error.json');
 dotenv.config();
 
 
-class SlapContextMenuCommand extends Command {
+class KissContextMenuCommand extends Command {
   constructor(context, options) {
     super(context, { ...options });
   }
   // Enregistrer la commande de menu contextuel
   registerApplicationCommands(registry) {
     registry.registerContextMenuCommand((builder) =>
-      builder.setName('Slap')
+      builder.setName('Kiss')
         .setType(2)
     );
   }
-  // Méthode pour récupérer une image de gifle depuis l'API waifu.pics
+  // Méthode pour récupérer une image de bisou depuis l'API waifu.pics
   fetchWaifu() {
-      return fetch('https://api.waifu.pics/sfw/slap')
+      return fetch('https://api.waifu.pics/sfw/kiss')
         .then(response => response.json())
         .then(data => data.url)
         .catch(error => {
@@ -32,28 +32,28 @@ class SlapContextMenuCommand extends Command {
     const target = interaction.targetUser;
 
     try {
-        // Créer un embed avec le GIF de gifle
+        // Créer un embed avec le GIF de câlin
         if (target.id === interaction.user.id) {
           const embed = new EmbedBuilder()
-            .setTitle(`👋 Grosse gifle pour ${interaction.user.username}`)
+            .setTitle(`${interaction.user.username} s\'embrasse lui-même 😘 (ça va l'égo ?) `)
             .setImage(`${await this.fetchWaifu()}`);
           await interaction.reply({ embeds: [embed] });
         } else {
             const embed = new EmbedBuilder()
-          .setTitle(`👋${interaction.user.username} gifle à ${target.username}! `)
+          .setTitle(`${interaction.user.username} embrasse ${target.username}! 😘`)
           .setImage(`${await this.fetchWaifu()}`);
         await interaction.reply({ content: `<@${target.id}>`, embeds: [embed] });
-        // Répondre à l'utilisateur avec le GIF de gifle
+        // Répondre à l'utilisateur avec le GIF de bisou
 
         }
       } 
       // Gérer les erreurs de l'API Giphy
       catch (error) {
-        console.error('Error fetching slap gif:', error);
-        await interaction.reply(fetchError.replace('{action}', 'slap'));
+        console.error('Error fetching kiss gif:', error);
+        await interaction.reply(fetchError.replace('{action}', 'kiss'));
       }
     }
 }
 module.exports = {
-  SlapContextMenuCommand
+  KissContextMenuCommand
 };

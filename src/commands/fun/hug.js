@@ -11,6 +11,16 @@ class HugCommand extends Command {
   constructor(context, options) {
     super(context, { ...options });
   }
+
+  fetchWaifu() {
+      return fetch('https://api.waifu.pics/sfw/hug')
+        .then(response => response.json())
+        .then(data => data.url)
+        .catch(error => {
+          console.error('Error fetching waifu image:', error);
+          throw new Error('Failed to fetch waifu image');
+        });
+      }
   // Enregistrer la commande
   registerApplicationCommands(registry) {
     registry.registerChatInputCommand((builder) =>
@@ -28,19 +38,16 @@ class HugCommand extends Command {
     const target = interaction.options.getUser('target');
 
     try {
-        // Récupérer un GIF de câlin aléatoire depuis l'API Giphy
-        const response = await fetch(`https://api.giphy.com/v1/gifs/random?api_key=${process.env.GIPHY_API_KEY}&tag=animehug`);
-        const data = await response.json();
         // Créer un embed avec le GIF de câlin
         if (target.id === interaction.user.id) {
           const embed = new EmbedBuilder()
             .setTitle(`🤗 Gros câlin pour ${interaction.user.username} `)
-            .setImage(`${data.data.images.original.url}`);
+            .setImage(`${await this.fetchWaifu()}`);
           await interaction.reply({ embeds: [embed] });
         } else {
             const embed = new EmbedBuilder()
           .setTitle(`🤗 ${interaction.user.username} fait un câlin à ${target.username}! `)
-          .setImage(`${data.data.images.original.url}`);
+          .setImage(`${await this.fetchWaifu()}`);
         await interaction.reply({ content: `<@${target.id}>`, embeds: [embed] });
         // Répondre à l'utilisateur avec le GIF de câlin
 
