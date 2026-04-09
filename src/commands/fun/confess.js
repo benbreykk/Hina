@@ -25,7 +25,7 @@ class ConfessCommand extends Command {
       // Créer le bouton pour répondre à la confession
     const button = new ButtonBuilder()
       .setCustomId('confess_button')
-      .setLabel('Répondre à la confession')
+      .setLabel('Faire ma confession')
       .setStyle(1);
     // Envoyer le message de confession dans un salon spécifique
     const confessionChannel = interaction.guild.channels.cache.get(CONFESS_CHANNEL_ID);
@@ -46,6 +46,7 @@ class ConfessCommand extends Command {
       autoArchiveDuration: 60,
       reason: 'Discussion pour la confession',
     });
+
     thead.send({ content: `Discussion pour la confession : ${message}` });
     await interaction.reply({ content: 'Ta confession a été envoyée anonymement !', ephemeral: true });
   }

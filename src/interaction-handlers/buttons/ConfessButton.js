@@ -1,5 +1,5 @@
 const { InteractionHandler, InteractionHandlerTypes } = require('@sapphire/framework');
-const { MessageFlags } = require('discord.js');
+const { ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder } = require('discord.js');
 
 class ConfessButtonHandler extends InteractionHandler {
     constructor(ctx, options) {
@@ -13,13 +13,23 @@ class ConfessButtonHandler extends InteractionHandler {
         if (interaction.customId !== 'confess_button') return this.none();
         return this.some();
     }
-
+    // Afficher le modal de confession lorsque le bouton est cliqué
     async run(interaction) {
-        await interaction.reply({ 
-            content: 'Tu peux faire une confession anonyme dans le serveur en utilisant la commande /confess !', 
-            ephemeral: true, 
-            flags: MessageFlags.Ephemeral 
-        });
+        const modal = new ModalBuilder()
+            .setCustomId('confess_modal')
+            .setTitle('Confession Anonyme');
+        // Ajouter un champ de texte pour la confession
+        const confessionInput = new TextInputBuilder()
+            .setCustomId('confession_input')
+            .setLabel('Ta confession :')
+            .setStyle(TextInputStyle.Paragraph)
+            .setRequired(true);
+
+        const firstActionRow = new ActionRowBuilder().addComponents(confessionInput);
+
+        modal.addComponents(firstActionRow);
+
+        await interaction.showModal(modal);
     }
   }
 
