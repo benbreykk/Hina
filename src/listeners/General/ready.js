@@ -39,6 +39,7 @@ class ReadyListener extends Listener {
         // Envoie un message pour indiquer les nouvelles fonctionnalités du bot en lisant le fichier features.txt
         // Ajouter // pour désactiver la fonctionnalité de message de nouveautés, et enlever les // pour l'activer
 
+       /* 
         const featuresChannel = await client.channels.fetch(process.env.FEATURES_CHANNEL_ID);
         if (featuresChannel) {
             const fs = require('fs');
@@ -53,7 +54,7 @@ class ReadyListener extends Listener {
         } else {
             this.container.logger.error('Salon des nouveautés désactivé ou introuvable!');
         }
-
+        */
 
         // 
         // Fin de la feature de message de nouveautés

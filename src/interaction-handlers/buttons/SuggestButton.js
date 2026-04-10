@@ -1,7 +1,7 @@
 const { InteractionHandler, InteractionHandlerTypes } = require('@sapphire/framework');
 const { ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder } = require('discord.js');
 
-class ConfessButtonHandler extends InteractionHandler {
+class SuggestButtonHandler extends InteractionHandler {
     constructor(ctx, options) {
         super(ctx, {
             ...options,

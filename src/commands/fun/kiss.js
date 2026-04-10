@@ -16,7 +16,7 @@ class KissCommand extends Command {
     registry.registerChatInputCommand((builder) =>
       builder.setName('kiss')
         .setDescription('Fais un bisou à quelqu\'un')
-        .addMemberOption(option => option
+        .addUserOption(option => option
             .setName('target')
             .setDescription('Utilisateur à qui faire un bisou')
             .setRequired(true)
@@ -35,7 +35,7 @@ class KissCommand extends Command {
         }
 
   async chatInputRun(interaction) {
-    const target = interaction.options.getMember('target');
+    const target = interaction.options.getUser('target');
 
     try {
         // Créer un embed avec le GIF de bisou

@@ -26,7 +26,7 @@ class HugCommand extends Command {
     registry.registerChatInputCommand((builder) =>
       builder.setName('hug')
         .setDescription('Fais un câlin à quelqu\'un')
-        .addMemberOption(option => option
+        .addUserOption(option => option
             .setName('target')
             .setDescription('Utilisateur à qui faire un câlin')
             .setRequired(true)
@@ -35,8 +35,7 @@ class HugCommand extends Command {
   }
 
   async chatInputRun(interaction) {
-    const target = interaction.options.getMember('target');
-
+    const target = interaction.options.getUser('target');
     if (!target) {
       return interaction.reply({ content: 'Utilisateur introuvable.', ephemeral: true });
     }

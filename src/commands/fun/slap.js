@@ -15,7 +15,7 @@ class SlapCommand extends Command {
     registry.registerChatInputCommand((builder) =>
       builder.setName('slap')
         .setDescription('Donne un coup de poing à quelqu\'un')
-        .addMemberOption(option => option
+        .addUserOption(option => option
             .setName('target')
             .setDescription('Utilisateur à qui donner un coup de poing')
             .setRequired(true)
@@ -33,7 +33,7 @@ class SlapCommand extends Command {
         }
 
   async chatInputRun(interaction) {
-    const target = interaction.options.getMember('target');
+    const target = interaction.options.getUser('target');
 
     try {
         // Créer un embed avec le GIF de coup de poing
