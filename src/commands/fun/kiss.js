@@ -36,18 +36,19 @@ class KissCommand extends Command {
 
   async chatInputRun(interaction) {
     const target = interaction.options.getUser('target');
+    const gif = await this.fetchWaifu();
 
     try {
         // Créer un embed avec le GIF de bisou
         if (target.id === interaction.user.id) {
           const embed = new EmbedBuilder()
             .setTitle(`${interaction.member.displayName} s\'embrasse lui-même 😘 (ça va l'égo ?) `)
-            .setImage(`${await this.fetchWaifu()}`);
+            .setImage(`${gif}`);
           await interaction.reply({ embeds: [embed] });
         } else {
             const embed = new EmbedBuilder()
           .setTitle(`${interaction.member.displayName} embrasse ${target.displayName}! 😘`)
-          .setImage(`${await this.fetchWaifu()}`);
+          .setImage(`${gif}`);
         await interaction.reply({ content: `<@${target.id}>`, embeds: [embed] });
         // Répondre à l'utilisateur avec le GIF de bisou
 

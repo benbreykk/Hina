@@ -36,21 +36,18 @@ class HugCommand extends Command {
 
   async chatInputRun(interaction) {
     const target = interaction.options.getUser('target');
-    if (!target) {
-      return interaction.reply({ content: 'Utilisateur introuvable.', ephemeral: true });
-    }
-
+    const gif = await this.fetchWaifu();
     try {
         // Créer un embed avec le GIF de câlin
         if (target.id === interaction.user.id) {
           const embed = new EmbedBuilder()
             .setTitle(`🤗 Gros câlin pour ${interaction.member.displayName} `)
-            .setImage(`${await this.fetchWaifu()}`);
+            .setImage(`${gif}`);
           await interaction.reply({ embeds: [embed] });
         } else {
             const embed = new EmbedBuilder()
           .setTitle(`🤗 ${interaction.member.displayName} fait un câlin à ${target.displayName}! `)
-          .setImage(`${await this.fetchWaifu()}`);
+          .setImage(`${gif}`);
         await interaction.reply({ content: `<@${target.id}>`, embeds: [embed] });
         // Répondre à l'utilisateur avec le GIF de câlin
 

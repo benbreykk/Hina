@@ -30,18 +30,20 @@ class HugContextMenuCommand extends Command {
       }
     async contextMenuRun(interaction) {
     const target = interaction.targetMember || interaction.targetUser;
+    const gif = await this.fetchWaifu();
 
     try {
         // Créer un embed avec le GIF de câlin
         if (target.id === interaction.user.id) {
           const embed = new EmbedBuilder()
             .setTitle(`🤗 Gros câlin pour ${interaction.member.displayName}`)
-            .setImage(`${await this.fetchWaifu()}`);
+            .setImage(`${gif}`);
           await interaction.reply({ embeds: [embed] });
         } else {
             const embed = new EmbedBuilder()
           .setTitle(`🤗 ${interaction.member.displayName} fait un câlin à ${target.displayName}! `)
-          .setImage(`${await this.fetchWaifu()}`);
+          .setImage(`${gif}`);
+        await interaction.deferReply();
         await interaction.reply({ content: `<@${target.id}>`, embeds: [embed] });
         // Répondre à l'utilisateur avec le GIF de câlin
 
