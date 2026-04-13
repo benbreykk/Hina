@@ -22,13 +22,24 @@ class WaifuCommand extends Command {
         throw new Error('Failed to fetch waifu image');
       });
     }
+
+    fetchWaifuu() {
+      return fetch('https://api.waifu.im/images/random?is_nsfw=false')
+        .then(response => response.json())
+        .then(data => data.url)
+        .catch(error => {
+          console.error('Error fetching waifu image:', error);
+          throw new Error('Failed to fetch waifu image');
+        });
+    }
   async chatInputRun(interaction) {
     try {
       const waifuUrl = await this.fetchWaifu();
+      const waifuUrl2 = await this.fetchWaifuu();
       const embed = new EmbedBuilder()
         .setTitle('Waifu aléatoire')
-        .setImage(waifuUrl)
-        .setURL(waifuUrl)
+        .setImage(waifuUrl || waifuUrl2)
+        .setURL(waifuUrl || waifuUrl2)
         .setColor('#ff0000');
       await interaction.reply({ embeds: [embed] });
     } catch (error) {
