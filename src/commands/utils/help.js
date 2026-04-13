@@ -14,16 +14,22 @@ class HelpCommand extends Command {
     );
   }
     async chatInputRun(interaction) {
+      // Récupérer les commandes disponibles et les formater pour l'affichage
+      const commands = interaction.client.application.commands.cache;
+      // Boucle pour formater les commandes et leurs descriptions
+      const commandList = commands.map(cmd => `**/${cmd.name}**: ${cmd.description}`).join('\n');
+      // Filtrer les commandes pour n'afficher que celles qui sont pertinentes pour l'utilisateur
+      const filteredCommandList = commandList; // Vous pouvez ajouter une logique de filtrage ici si nécessaire
+      
+            // Créer un embed pour afficher les commandes disponibles
         const embed = new EmbedBuilder()
         .setTitle('📖 Aide - Commandes disponibles'
         
         )
-        .setDescription('Voici les commandes disponibles :')
-        .addFields(
-          { name: '/waifu', value: 'Affiche une image aléatoire de waifu' },
-          { name: '/help', value: 'Affiche cette aide' }
-        );
-      await interaction.reply({ embeds: [embed] });
+        .setDescription(filteredCommandList)
+        .setColor('#00FF00')
+        .setFooter({ text: 'Utilisez /help pour plus de détails sur une commande spécifique.' });
+      await interaction.reply({ embeds: [embed], ephemeral: true });
     }
 }
 module.exports = {

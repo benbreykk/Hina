@@ -25,9 +25,16 @@ class SuggestButtonHandler extends InteractionHandler {
             .setStyle(TextInputStyle.Paragraph)
             .setRequired(true);
 
+        const titleInput = new TextInputBuilder()
+            .setCustomId('suggestion_title')
+            .setLabel('Titre de la suggestion (optionnel) :')
+            .setStyle(TextInputStyle.Short)
+            .setRequired(false);
+        
         const firstActionRow = new ActionRowBuilder().addComponents(suggestionInput);
+        const secondActionRow = new ActionRowBuilder().addComponents(titleInput);
 
-        modal.addComponents(firstActionRow);
+        modal.addComponents(firstActionRow, secondActionRow);
 
         await interaction.showModal(modal);
     }

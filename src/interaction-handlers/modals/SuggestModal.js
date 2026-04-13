@@ -15,17 +15,19 @@ class SuggestModalHandler extends InteractionHandler {
     }
 
     async run(interaction) {
+        const title = interaction.fields.getTextInputValue('suggestion_title');
         const suggestion = interaction.fields.getTextInputValue('suggestion_input');
 
         const embed = new EmbedBuilder()
-            .setTitle('Nouvelle suggestion')
+            .setTitle(title || 'Nouvelle suggestion')
             .setDescription(suggestion)
             .setColor('#FF69B4')
-            .setFooter({ text: 'Utilisateur anonyme' })
+            .setFooter({ text: `Suggestion de ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL() })
             .setTimestamp();
-        
+
         // récupérer le salon de suggestions à partir du bouton cliqué
-        const suggestChannel = interaction.guild.channels.cache.find(channel => channel.name === 'suggestions');
+        const suggestChannelId = process.env.SUGGEST_CHANNEL_ID;
+        const suggestChannel = interaction.guild.channels.cache.get(suggestChannelId);
         if (!suggestChannel) {
             return interaction.reply({ content: 'Le salon de suggestions est introuvable.', ephemeral: true });
         }

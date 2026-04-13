@@ -15,7 +15,6 @@ class guildMemberAddListener extends Listener {
         member.guild.channels.cache.get(process.env.WELCOME_CHANNEL_ID)?.send({ 
             content: `Bienvenue ${member} sur le serveur !`, 
         });
-
         this.container.logger.info(`Member joined: ${member.user.tag}`);
     }
 }

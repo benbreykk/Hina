@@ -24,10 +24,10 @@ class SuggestChannelCommand extends Command {
         return interaction.reply({content: 'Vous n\'avez pas la permission d\'utiliser cette commande.', ephemeral: true});
      }
 
-     // récupère l'id du salon de suggestions à partir des variables d'environnement depuis la commande et vérifie s'il existe déjà
-
-        interaction.reply({content: `Salon de suggestions créé avec succès: ${suggestChannel}`, ephemeral: true});
-        // Envoie un message dans le salon de suggestions pour indiquer que le salon a été créé
+        // récupère l'id du salon de suggestions 
+        const suggestChannelId = process.env.SUGGEST_CHANNEL_ID;
+        const suggestChannel = interaction.guild.channels.cache.get(suggestChannelId);
+                // Envoie un message dans le salon de suggestions pour indiquer que le salon a été créé
         const embed = new EmbedBuilder()
             .setTitle('Suggestions')
             .setDescription('Utilisez les boutons ci-dessous pour suggérer des idées ou voir les suggestions déjà faites.')
