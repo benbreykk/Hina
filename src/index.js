@@ -5,9 +5,15 @@ dotenv.config();
 
 ApplicationCommandRegistries.setDefaultGuildIds([process.env.GUILD_ID]);
 
-const client = new SapphireClient({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
+const client = new SapphireClient({ intents: [
+    GatewayIntentBits.Guilds, 
+    GatewayIntentBits.GuildMessages, 
+    GatewayIntentBits.MessageContent, 
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildVoiceStates
+    ],
     loadMessageCommandListeners: true,
     loadApplicationCommandRegistriesStatusListeners: true
  });
 
-client.login(process.env.BOT_TOKEN)
+client.login(process.env.BOT_TOKEN);
