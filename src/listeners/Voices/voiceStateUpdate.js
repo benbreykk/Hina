@@ -12,20 +12,21 @@ class voiceStateUpdateListener extends Listener {
   }
 
     async run(oldState, newState) {
-        // Vérifie si l'utilisateur a rejoint un canal vocal
-        if (!oldState.channelId && newState.channelId) {
-            this.container.logger.info(`${newState.member.user.tag} a rejoint le canal vocal ${newState.channel.name}`);
+        const voiceChannel = newState.channel || oldState.channel;
+        if (!voiceChannel) return; // Si l'utilisateur n'est pas dans un canal vocal, ne rien faire
+        const guild = voiceChannel.guild;
+        const db = this.container.client.db;
+        const guilds = db.collection('guilds');
+        if (guilds) {
+            const memberCount = voiceChannel.members.filter(member => !member.user.bot).size;
+            await guilds.updateOne(
+                { guildId: guild.id },
+                { $set: { voiceChannelMemberCount: memberCount } }
+            );
+            this.container.logger.info(`✅ Compteur de membres dans les canaux vocaux mis à jour pour le serveur ${guild.name}!`);
+        } else {
+            this.container.logger.error('Collection "guilds" introuvable dans la base de données!');
         }
-        // Vérifie si l'utilisateur a quitté un canal vocal
-        else if (oldState.channelId && !newState.channelId) {
-            this.container.logger.info(`${oldState.member.user.tag} a quitté le canal vocal ${oldState.channel.name}`);
-        }
-
-        // Vérifie si l'utilisateur a changé de canal vocal (ancien et nouveau canal sont différents)
-        else if (oldState.channelId && newState.channelId && oldState.channelId !== newState.channelId) {
-            this.container.logger.info(`${newState.member.user.tag} a changé de canal vocal: ${oldState.channel.name} -> ${newState.channel.name}`);
-        }
-        
     }
 }
 
