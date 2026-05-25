@@ -20,9 +20,9 @@ class HugContextMenuCommand extends Command {
   }
   // Méthode pour récupérer une image de câlin depuis l'API waifu.pics
   fetchWaifu() {
-      return fetch('https://api.waifu.pics/sfw/hug')
+      return fetch('https://nekos.best/api/v2/hug')
         .then(response => response.json())
-        .then(data => data.url)
+        .then(data => data.results[0].url)
         .catch(error => {
           console.error('Error fetching waifu image:', error);
           throw new Error('Failed to fetch waifu image');

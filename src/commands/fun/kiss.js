@@ -25,9 +25,9 @@ class KissCommand extends Command {
   }
 
   fetchWaifu() {
-        return fetch('https://api.waifu.pics/sfw/kiss')
+        return fetch('https://nekos.best/api/v2/kiss')
           .then(response => response.json())
-          .then(data => data.url)
+          .then(data => data.results[0].url)
           .catch(error => {
             console.error('Error fetching waifu image:', error);
             throw new Error('Failed to fetch waifu image');
