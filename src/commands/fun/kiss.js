@@ -9,7 +9,10 @@ dotenv.config();
 
 class KissCommand extends Command {
   constructor(context, options) {
-    super(context, { ...options });
+    super(context, { ...options,
+      name: 'kiss',
+      description: 'Fais un bisou à quelqu\'un *(existe en contextmenu)*',
+     });
   }
   // Enregistrer la commande
   registerApplicationCommands(registry) {

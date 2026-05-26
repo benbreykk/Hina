@@ -43,7 +43,6 @@ class HugContextMenuCommand extends Command {
             const embed = new EmbedBuilder()
           .setTitle(`🤗 ${interaction.member.displayName} fait un câlin à ${target.displayName}! `)
           .setImage(`${gif}`);
-        await interaction.deferReply();
         await interaction.reply({ content: `<@${target.id}>`, embeds: [embed] });
         // Répondre à l'utilisateur avec le GIF de câlin
 

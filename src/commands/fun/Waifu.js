@@ -4,7 +4,10 @@ const fetch = require('node-fetch');
 
 class WaifuCommand extends Command {
   constructor(context, options) {
-    super(context, { ...options });
+    super(context, { ...options,
+      name: 'waifu',
+      description: 'Affiche une image aléatoire de waifu',
+     });
   }
 
   registerApplicationCommands(registry) {

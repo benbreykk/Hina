@@ -9,7 +9,10 @@ dotenv.config();
 
 class BiteCommand extends Command {
   constructor(context, options) {
-    super(context, { ...options });
+    super(context, { ...options,
+      name: 'bite',
+      description: 'Mord quelqu\'un',
+     });
   }
 
   fetchWaifu() {

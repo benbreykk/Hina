@@ -26,4 +26,5 @@ const client = new SapphireClient({ intents: [
     loadApplicationCommandRegistriesStatusListeners: true
  });
 
+
 client.login(process.env.BOT_TOKEN);

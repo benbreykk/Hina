@@ -8,7 +8,10 @@ dotenv.config();
 
 class SlapCommand extends Command {
   constructor(context, options) {
-    super(context, { ...options });
+    super(context, { ...options,
+      name: 'slap',
+      description: 'Donne un coup de poing à quelqu\'un',
+     });
   }
   // Enregistrer la commande 
   registerApplicationCommands(registry) {

@@ -9,7 +9,10 @@ dotenv.config();
 
 class HugCommand extends Command {
   constructor(context, options) {
-    super(context, { ...options });
+    super(context, { ...options,
+      name: 'hug',
+      description: 'Fais un câlin à quelqu\'un *(existe en contextmenu)*',
+     });
   }
 
   fetchWaifu() {
