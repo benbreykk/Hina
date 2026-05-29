@@ -1,6 +1,11 @@
 const { Listener } = require('@sapphire/framework');
+
+const { supabase } = require('../lib/supabase');
+
 const dotenv = require('dotenv');
 dotenv.config();
+
+
 
 class ReadyListener extends Listener {
   constructor(context, options) {
@@ -27,31 +32,24 @@ class ReadyListener extends Listener {
             this.container.logger.error('Ready channel not found!');
         }
 
-        // Envoie un message pour indiquer les nouvelles fonctionnalités du bot en lisant le fichier features.txt
-        // Ajouter // pour désactiver la fonctionnalité de message de nouveautés, et enlever les // pour l'activer
+        // Supabase DB
+        const guilds = this.container.client.guilds.cache.map((guild) => ({
+            id: guild.id,
+            name: guild.name,
+            member_count: guild.memberCount,
+            joined_at: new Date().toISOString(),
+            active: true,
+            owner_id: guild.ownerId
+        }));
 
-       /* 
-        const featuresChannel = await client.channels.fetch(process.env.FEATURES_CHANNEL_ID);
-        if (featuresChannel) {
-            const fs = require('fs');
-            fs.readFile('src/assets/txt/features.txt', 'utf8', (err, data) => {
-                if (err) {
-                    this.container.logger.error('Error reading features.txt:', err);
-                    return;
-                }
-                const messageTime = Math.floor(Date.now() / 1000);
-                featuresChannel.send(`# ❤️ Nouveauté d'Hina ❤️\n**Mise à jour <t:${messageTime}:R>**\n${data}`);
-            });
+        const { error } = await supabase
+            .from('guilds')
+            .upsert(guilds, { onConflict: 'id' });
+        if (error) {
+            this.container.logger.error(`ReadyListener: Failed to upsert guilds into database: ${error.message}`);
         } else {
-            this.container.logger.error('Salon des nouveautés désactivé ou introuvable!');
+            this.container.logger.info(`ReadyListener: Successfully upserted guilds into database.`);
         }
-        */
-
-        // 
-        // Fin de la feature de message de nouveautés
-        // Ajout des membres du serveur de test dans la base de données
-        const guild = await client.guilds.fetch(process.env.GUILD_ID);
-    
 
     }
 
